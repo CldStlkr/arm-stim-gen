@@ -1,3 +1,0 @@
-/home/neel/Dev/personal/arm-stim-gen/generator/build/CMakeFiles/stim_gen.dir
-/home/neel/Dev/personal/arm-stim-gen/generator/build/CMakeFiles/edit_cache.dir
-/home/neel/Dev/personal/arm-stim-gen/generator/build/CMakeFiles/rebuild_cache.dir

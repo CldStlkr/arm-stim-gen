@@ -1,1 +1,0 @@
-/usr/lib64/ccache/c++ -Wl,--dependency-file=CMakeFiles/stim_gen.dir/link.d CMakeFiles/stim_gen.dir/main.cpp.o -o stim_gen
