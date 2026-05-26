@@ -35,9 +35,12 @@ jobs:
         run: cargo build --release --manifest-path rust-generator/Cargo.toml
 
       # --- Zig ---
-      - uses: mlugg/setup-zig@v1
-        with:
-          version: 0.16.0
+      - name: Install Zig 0.16.0
+        run: |
+          curl -fsSL https://ziglang.org/download/0.16.0/zig-linux-x86_64-0.16.0.tar.xz \
+            | sudo tar xJ -C /usr/local/lib
+          sudo ln -sf /usr/local/lib/zig-linux-x86_64-0.16.0/zig /usr/local/bin/zig
+          zig version
 
       - name: Build Zig generator
         run: zig build -Doptimize=ReleaseFast

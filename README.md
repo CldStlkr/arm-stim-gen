@@ -19,9 +19,9 @@ AArch64 assembly stimulus generator for CPU microarchitecture verification. Thre
 flowchart LR
     IN([seed + strategy + count]) --> GEN{generator}
 
-    GEN -->|--generator cpp|  CPP["stim_gen\nC++23 / cmake"]
-    GEN -->|--generator rust| RUST["rust-generator\nRust 2024 / cargo"]
-    GEN -->|--generator zig|  ZIG["zig-generator\nZig 0.16 / build.zig"]
+    GEN -->|cpp|  CPP["stim_gen / C++23 / cmake"]
+    GEN -->|rust| RUST["rust-generator / Rust 2024 / cargo"]
+    GEN -->|zig|  ZIG["zig-generator / Zig 0.16 / build.zig"]
 
     CPP  --> ASM[test.S]
     RUST --> ASM
@@ -29,10 +29,10 @@ flowchart LR
 
     ASM --> AS["aarch64-linux-gnu-as"]
     AS  --> OBJ[test.o]
-    OBJ --> LD["aarch64-linux-gnu-ld\n-Ttext=0x400000"]
+    OBJ --> LD["aarch64-linux-gnu-ld -Ttext=0x400000"]
     LD  --> ELF[test.elf]
     ELF --> QEMU["qemu-aarch64"]
-    QEMU --> SIG["signature.bin\n10 x uint64_le"]
+    QEMU --> SIG["signature.bin / 10 x uint64_le"]
 
     SIG --> CHK{golden exists?}
     CHK -->|no|  REC([record golden])
@@ -40,7 +40,7 @@ flowchart LR
     DIFF -->|match|    PASS([PASS])
     DIFF -->|mismatch| FAIL([FAIL])
 
-    SIG -.->|optional --bug| ISS["iss.py\nbuggy Python ISS"]
+    SIG -.->|bug flag| ISS["iss.py / buggy Python ISS"]
     ISS -.-> ISSDIFF{diff vs golden}
     ISSDIFF -.->|diverges| EXP([bug exposed])
     ISSDIFF -.->|matches|  NEXP([not triggered])
