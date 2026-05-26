@@ -17,11 +17,11 @@ AArch64 assembly stimulus generator for CPU microarchitecture verification. Thre
 
 ```mermaid
 flowchart LR
-    IN([seed + strategy + count]) --> GEN{generator}
+    IN([seed, strategy, count]) --> GEN{generator}
 
-    GEN -->|cpp|  CPP["stim_gen / C++23 / cmake"]
+    GEN -->|cpp| CPP["stim_gen / C++23 / cmake"]
     GEN -->|rust| RUST["rust-generator / Rust 2024 / cargo"]
-    GEN -->|zig|  ZIG["zig-generator / Zig 0.16 / build.zig"]
+    GEN -->|zig| ZIG["zig-generator / Zig 0.16 / build.zig"]
 
     CPP  --> ASM[test.S]
     RUST --> ASM
@@ -35,15 +35,15 @@ flowchart LR
     QEMU --> SIG["signature.bin / 10 x uint64_le"]
 
     SIG --> CHK{golden exists?}
-    CHK -->|no|  REC([record golden])
+    CHK -->|no| REC([record golden])
     CHK -->|yes| DIFF{byte diff}
-    DIFF -->|match|    PASS([PASS])
+    DIFF -->|match| PASS([PASS])
     DIFF -->|mismatch| FAIL([FAIL])
 
     SIG -.->|bug flag| ISS["iss.py / buggy Python ISS"]
     ISS -.-> ISSDIFF{diff vs golden}
     ISSDIFF -.->|diverges| EXP([bug exposed])
-    ISSDIFF -.->|matches|  NEXP([not triggered])
+    ISSDIFF -.->|matches| NEXP([not triggered])
 ```
 
 Each generator produces identical output for the same seed and strategy. Goldens are stored per-generator under `tests/golden/<generator>/`.

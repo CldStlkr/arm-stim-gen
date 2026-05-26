@@ -1,5 +1,4 @@
 */build
-assets/
 target/
 tests/
 */.zig-cache/*
