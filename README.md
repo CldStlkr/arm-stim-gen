@@ -44,6 +44,9 @@ flowchart LR
     ISS -.-> ISSDIFF{diff vs golden}
     ISSDIFF -.->|diverges| EXP([bug exposed])
     ISSDIFF -.->|matches| NEXP([not triggered])
+
+    classDef pill color:#24292f
+    class IN,REC,PASS,FAIL,EXP,NEXP pill
 ```
 
 Each generator produces identical output for the same seed and strategy. Goldens are stored per-generator under `tests/golden/<generator>/`.
